@@ -41,22 +41,31 @@ public class q7 {
     return newNode;
   }
 
-  public static Node insertAtLast(Node head, int data) {
-    Node lastNode = new Node(data);
+  public static Node insertAtLast(Node head, int x) {
+    Node temp = new Node(x);
     if (head == null) {
-      lastNode.next = lastNode;
-      return lastNode;
+      temp.next = temp;
+      return temp;
+    } else {
+      temp.next = head.next;
+      head.next = temp;
+
+      int t = head.data;
+
+      head.data = temp.data;
+
+      temp.data = t;
+      return temp;
     }
+  }
 
-    // Find the last node
-    Node curr = head;
-    while (curr.next != head) {
-      curr = curr.next;
-    }
-
-    curr.next = lastNode;
-    lastNode.next = head;
-
+  public static Node deleteHeadCircularLL(Node head) {
+    if (head == null)
+      return null;
+    if (head.next == head)
+      return null;
+    head.data = head.next.data;
+    head.next = head.next.next;
     return head;
   }
 
@@ -77,5 +86,10 @@ public class q7 {
 
     Node lastHead = insertAtLast(newHead, 40);
     printlist(lastHead);
+
+    System.out.println("");
+
+    Node delHead = deleteHeadCircularLL(lastHead);
+    printlist(delHead);
   }
 }
